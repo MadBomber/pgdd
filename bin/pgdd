@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# Runs from a checkout (bin on the PATH) as well as from the installed gem
+lib = File.expand_path('../lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
 require 'pgdd'
 
 exit Pgdd::CLI.run(ARGV)
