@@ -1,0 +1,39 @@
+# frozen_string_literal: true
+# pgdd — as-built database documentation and ERDs for a Rails application.
+#
+# Asgard task file. The shared MadBomber gem tasks come from madbomber/dev,
+# found by walking up from this directory (so no relative paths to keep):
+#   gem_tasks.loki  console, build, install, release
+#   quality.loki    quality (every *_check gate in parallel), test_check, rubocop_check, ...
+#   git.loki        push, pull, fetch
+#   doc_tasks.loki  doc_builder, doc_server (only when mkdocs.yml is present)
+# Run `asgard help` for the full list.
+
+require "shellwords"
+
+import_up "dev/gem_tasks.loki"
+import_up "dev/quality.loki"
+import_up "dev/git.loki"
+import_up "dev/doc_tasks.loki"
+
+class Tasks
+  @@gem_name ||= "pgdd".freeze
+
+  header "pgdd v#{gem_version} — as-built database documentation for Rails"
+
+  desc "Run the test suite"
+  def test
+    sh "bundle exec rake test"
+  end
+
+  desc "Run pgdd against a Rails app from this checkout (pass-through args, e.g. asgard pgdd ../app -o /tmp/dd)"
+  def pgdd(*args)
+    sh "bundle exec bin/pgdd #{args.map(&:shellescape).join(' ')}".rstrip
+  end
+
+  desc "Write the database documentation for a Rails app at APP_ROOT into OUTPUT (default: its docs/database)"
+  def generate(app_root, output = nil)
+    output ||= File.join(app_root, "docs", "database")
+    sh "bundle exec bin/pgdd #{app_root.shellescape} --output #{output.shellescape}"
+  end
+end

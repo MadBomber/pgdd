@@ -1,0 +1,74 @@
+---
+# Reek configuration for pgdd. The asgard quality gate (dev/quality.loki)
+# compares smell counts per file against .quality/reek_baseline.txt and fails
+# on new or worsened files, so the baseline grandfathers what is here today
+# and anything added later has to come in clean.
+detectors:
+
+  # Disabled: conflicts with the no-comment-per-class coding style.
+  IrresponsibleModule:
+    enabled: false
+
+  # Disabled: explicit nil checks are idiomatic Ruby.
+  NilCheck:
+    enabled: false
+
+  # Disabled: method size and complexity are Flog's job (the primary gate)
+  # plus RuboCop's Metrics cops.
+  TooManyStatements:
+    enabled: false
+
+  # Report and ErdWriter are functions over the App's Data values: a method
+  # that mostly asks its table, column or model questions is the design.
+  FeatureEnvy:
+    enabled: false
+
+  UtilityFunction:
+    enabled: false
+
+  # Page-building code repeats db.name / t.name / m.name a few times per method.
+  DuplicateMethodCall:
+    max_calls: 3
+
+  # The inspectors take the connection or model plus a handful of options.
+  LongParameterList:
+    max_params: 5
+
+  TooManyMethods:
+    max_methods: 45
+
+  # Accept standard short names for limited-scope variables: the Data values
+  # (table, column, model, migration, foreign key, database) are named by their
+  # initial throughout the report and diagram code.
+  UncommunicativeVariableName:
+    accept:
+      - _
+      - a
+      - b
+      - c
+      - e
+      - h
+      - i
+      - k
+      - m
+      - n
+      - r
+      - s
+      - t
+      - v
+      - db
+      - fk
+      - pk
+      - tr
+
+  UncommunicativeParameterName:
+    accept:
+      - t    # table
+      - m    # model or migration
+      - db   # database
+      - fk   # foreign key
+
+exclude_paths:
+  - test
+  - pkg
+  - tmp
