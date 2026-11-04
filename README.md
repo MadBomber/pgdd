@@ -1,3 +1,5 @@
+<img src="pgdd-logo.png" alt="pgdd logo" width="128" align="left" style="margin-right: 16px">
+
 # pgdd
 
 As-built database documentation for a Rails application, with entity relationship diagrams.
@@ -76,7 +78,7 @@ Each table's diagram draws that table in full. Its related tables are collapsed 
 
 Dark theme, transparent background, so they look right on both GitHub themes.
 
-**The links inside an SVG do not work on GitHub.** GitHub shows an SVG as a static image, embedded or on its own, and clicking an image opens the file. The links work when the SVG is opened from a checkout. For navigation that works everywhere, each page's Relations section opens with a linked list of the tables it references and the tables that reference it, polymorphic ones included.
+**The links inside an SVG do not work on GitHub.** GitHub shows an SVG as a static image, embedded or on its own, and clicking an image opens the file. The links work where the SVG element itself is rendered: the file opened from a checkout, or a documentation site that inlines the diagrams (an MkDocs hook can do this). For navigation that works everywhere, each page's Relations section opens with a linked list of the tables it references and the tables that reference it, polymorphic ones included.
 
 ### Migrations
 
