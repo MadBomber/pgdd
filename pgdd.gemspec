@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
                      'plus Graphviz entity relationship diagrams that link back to the pages.'
   spec.homepage = 'https://github.com/madbomber/pgdd'
   spec.license  = 'MIT'
-  spec.required_ruby_version = '>= 3.2'
+  spec.required_ruby_version = '>= 4.0'
 
   spec.metadata = {
     'source_code_uri'       => spec.homepage,
